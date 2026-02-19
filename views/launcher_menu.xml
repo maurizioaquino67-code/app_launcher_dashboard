@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <menuitem id="menu_app_launcher_root" name="Launcher" sequence="5"/>
+
+    <menuitem id="menu_app_launcher_dashboard"
+              name="Dashboard"
+              parent="menu_app_launcher_root"
+              action="action_app_launcher_dashboard"
+              sequence="10"/>
+
+    <menuitem id="menu_app_launcher_settings"
+              name="Impostazioni"
+              parent="menu_app_launcher_root"
+              action="action_launcher_settings_server"
+              sequence="20"/>
+</odoo>

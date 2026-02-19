@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_app_launcher_tile_user,access_app_launcher_tile_user,model_app_launcher_tile,base.group_user,1,1,1,1
+access_launcher_settings_user,access_launcher_settings_user,model_launcher_settings,base.group_user,1,1,1,1
