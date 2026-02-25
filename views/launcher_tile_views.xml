@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_app_launcher_tile_kanban" model="ir.ui.view">
+        <field name="name">app.launcher.tile.kanban</field>
+        <field name="model">app.launcher.tile</field>
+        <field name="arch" type="xml">
+            <kanban class="o_launcher_kanban">
+                <field name="name"/>
+                <field name="icon"/>
+                <field name="icon_class"/>
+                <field name="accent_class"/>
+                <field name="menu_id"/>
+                <field name="color_class"/>
+
+                <templates>
+                    <t t-name="card">
+                        <button type="object" name="action_open"
+                            class="o_launch_btn"
+                            t-att-class="record.accent_class.raw_value or ''">
+                            <div class="o_launch_icon">
+                                <t t-if="record.icon.raw_value">
+                                    <img t-att-src="'/web/image/app.launcher.tile/' + record.id.raw_value + '/icon'"/>
+                                </t>
+                                <t t-else="">
+                                    <i t-att-class="'fa fa-2x ' + (record.icon_class.raw_value or 'fa-cube')"/>
+                                </t>
+                            </div>
+                            <div class="o_launch_label">
+                                <t t-esc="record.name.value"/>
+                            </div>
+                        </button>
+                    </t>
+                </templates>
+
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_app_launcher_tile_list" model="ir.ui.view">
+        <field name="name">app.launcher.tile.list</field>
+        <field name="model">app.launcher.tile</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="menu_id"/>
+                <field name="icon_class"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_app_launcher_tile_form" model="ir.ui.view">
+        <field name="name">app.launcher.tile.form</field>
+        <field name="model">app.launcher.tile</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="sequence"/>
+                        <field name="name"/>
+                        <field name="menu_id"/>
+                        <field name="icon" filename="icon_filename" widget="image"/>
+                        <field name="icon_filename" invisible="1"/>
+                        <field name="icon_class" placeholder="fa-shopping-cart"/>
+                        <field name="accent_class" placeholder="o_launch_accent_blue"/>
+                        <field name="color_class"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_app_launcher_dashboard" model="ir.actions.act_window">
+        <field name="name">Dashboard</field>
+        <field name="res_model">app.launcher.tile</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crea la tua prima tile!
+            </p>
+            <p>
+                Aggiungi icone che puntano ai menu di Odoo.
+            </p>
+        </field>
+    </record>
+</odoo>

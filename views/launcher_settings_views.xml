@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_launcher_settings_form" model="ir.ui.view">
+        <field name="name">launcher.settings.form</field>
+        <field name="model">launcher.settings</field>
+        <field name="arch" type="xml">
+            <form string="Impostazioni Launcher">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>Impostazioni Dashboard</h1>
+                    </div>
+                    <group string="Sfondo">
+                        <field name="background_color"
+                               widget="color"
+                               string="Colore sfondo dashboard"/>
+                    </group>
+                    <group string="Icone">
+                        <field name="icon_bg_color"
+                               widget="color"
+                               string="Colore sfondo icone"/>
+                        <field name="icon_size"
+                               widget="radio"
+                               string="Dimensione icone"/>
+                    </group>
+                    <group string="Etichette">
+                        <field name="label_color"
+                               widget="color"
+                               string="Colore testo"/>
+                        <field name="label_font_size"
+                               string="Dimensione font (px)"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_launcher_settings_server" model="ir.actions.server">
+        <field name="name">Impostazioni Launcher</field>
+        <field name="model_id" ref="model_launcher_settings"/>
+        <field name="state">code</field>
+        <field name="code">action = model.action_open_settings()</field>
+    </record>
+</odoo>

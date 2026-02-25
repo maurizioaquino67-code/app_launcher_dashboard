@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="tile_crm" model="app.launcher.tile">
+        <field name="name">CRM</field>
+        <field name="sequence">5</field>
+        <field name="menu_id" ref="crm.crm_menu_root"/>
+        <field name="icon_class">fa-handshake-o</field>
+        <field name="accent_class">o_launch_accent_blue</field>
+    </record>
+
+    <record id="tile_sales" model="app.launcher.tile">
+        <field name="name">Vendite</field>
+        <field name="sequence">10</field>
+        <field name="menu_id" ref="sale.sale_menu_root"/>
+        <field name="icon_class">fa-shopping-cart</field>
+        <field name="accent_class">o_launch_accent_orange</field>
+    </record>
+
+    <record id="tile_inventory" model="app.launcher.tile">
+        <field name="name">Magazzino</field>
+        <field name="sequence">20</field>
+        <field name="menu_id" ref="stock.menu_stock_root"/>
+        <field name="icon_class">fa-archive</field>
+        <field name="accent_class">o_launch_accent_green</field>
+    </record>
+
+    <record id="tile_contacts" model="app.launcher.tile">
+        <field name="name">Contatti</field>
+        <field name="sequence">30</field>
+        <field name="menu_id" ref="contacts.menu_contacts"/>
+        <field name="icon_class">fa-address-book</field>
+        <field name="accent_class">o_launch_accent_purple</field>
+    </record>
+
+    <record id="tile_employees" model="app.launcher.tile">
+        <field name="name">Dipendenti</field>
+        <field name="sequence">40</field>
+        <field name="menu_id" ref="hr.menu_hr_root"/>
+        <field name="icon_class">fa-id-badge</field>
+        <field name="accent_class">o_launch_accent_brown</field>
+    </record>
+</odoo>
