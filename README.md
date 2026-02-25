@@ -2,7 +2,7 @@
 
 ![Odoo](https://img.shields.io/badge/Odoo-18.0-875A7B?style=flat-square&logo=odoo)
 ![License](https://img.shields.io/badge/License-LGPL--3-blue?style=flat-square)
-![Version](https://img.shields.io/badge/Version-18.0.1.0.0-green?style=flat-square)
+![Version](https://img.shields.io/badge/Version-18.0.1.1.0-green?style=flat-square)
 
 Un modulo per Odoo 18 che aggiunge una **dashboard a icone** per accedere rapidamente alle sezioni principali dell'applicazione, con stile ispirato a Odoo Enterprise.
 
@@ -12,10 +12,12 @@ Un modulo per Odoo 18 che aggiunge una **dashboard a icone** per accedere rapida
 
 - Dashboard con tile/icone cliccabili che aprono qualsiasi menu di Odoo
 - Icone personalizzabili: immagine PNG/SVG caricabile o FontAwesome come fallback
-- Colori di sfondo, testo ed etichette configurabili dalle Impostazioni
-- Navigazione intelligente: funziona anche con i menu padre (scende automaticamente ai sottomenu)
+- **5 taglie icone** selezionabili dalle Impostazioni: XS / S / M / L / XL
+- Colori di sfondo, icone ed etichette configurabili
+- Navigazione intelligente: funziona anche con menu padre (scende automaticamente ai sottomenu figli)
 - Griglia fluida che si adatta alla larghezza dello schermo
 - Effetto hover "lift" sulle icone
+- 5 tile preconfigurate all'installazione: CRM, Vendite, Magazzino, Contatti, Dipendenti
 
 ---
 
@@ -23,9 +25,9 @@ Un modulo per Odoo 18 che aggiunge una **dashboard a icone** per accedere rapida
 
 > La dashboard con le tile di default dopo l'installazione:
 
-| CRM | Vendite | Magazzino | Contatti |
-|-----|---------|-----------|---------|
-| 🔵 Blu | 🔴 Rosso | 🟢 Verde | 🟣 Viola |
+| CRM | Vendite | Magazzino | Contatti | Dipendenti |
+|-----|---------|-----------|---------|-----------|
+| 🔵 Blu | 🔴 Rosso | 🟢 Verde | 🟣 Viola | 🟤 Arancione |
 
 ---
 
@@ -35,15 +37,13 @@ Un modulo per Odoo 18 che aggiunge una **dashboard a icone** per accedere rapida
 |---|---|
 | Odoo | 18.0 |
 | Python | 3.10+ |
-| Moduli Odoo richiesti | `base`, `web`, `sale`, `stock`, `contacts`, `crm` |
+| Moduli Odoo richiesti | `base`, `web`, `sale`, `stock`, `contacts`, `crm`, `hr` |
 
 ---
 
 ## Installazione
 
 ### 1. Copia il modulo
-
-Copia la cartella `app_launcher_dashboard` nella directory dei tuoi addon personalizzati:
 
 ```bash
 cp -r app_launcher_dashboard /path/to/odoo/custom-addons/
@@ -59,12 +59,12 @@ Vai su **Impostazioni → Tecnico → Aggiorna lista moduli** oppure riavvia Odo
 
 ### 3. Installa il modulo
 
-Vai su **Impostazioni → App** e cerca `App Launcher Dashboard`, poi clicca **Installa**.
+Vai su **Impostazioni → App**, cerca `App Launcher Dashboard` e clicca **Installa**.
 
 Al termine dell'installazione il modulo:
-- Crea automaticamente le 4 tile di default (CRM, Vendite, Magazzino, Contatti)
-- Carica le icone PNG preconfigurate
-- Crea il record delle impostazioni con i colori di default
+- Crea automaticamente le 5 tile di default (CRM, Vendite, Magazzino, Contatti, Dipendenti)
+- Carica le icone PNG preconfigurate in stile Enterprise
+- Crea il record delle impostazioni con colori e dimensioni di default
 
 ---
 
@@ -127,10 +127,10 @@ SELECT COUNT(*) FROM ir_module_module WHERE name = 'app_launcher_dashboard';
 
 ### Accedere alla dashboard
 
-Dopo l'installazione trovi il menu **Launcher** nella barra di navigazione principale di Odoo, con due sottomenu:
+Dopo l'installazione trovi il menu **Launcher** nella barra di navigazione principale di Odoo:
 
-- **Dashboard** — mostra le tile/icone
-- **Impostazioni** — configura i colori
+- **Launcher → Dashboard** — mostra le tile/icone
+- **Launcher → Impostazioni** — configura aspetto e dimensioni
 
 ### Aggiungere una nuova tile
 
@@ -142,23 +142,36 @@ Dopo l'installazione trovi il menu **Launcher** nella barra di navigazione princ
    - **Menu di destinazione** — seleziona il menu Odoo a cui punta la tile
    - **Icona** — carica un'immagine PNG/SVG (opzionale)
    - **Icona FontAwesome** — classe FA come `fa-shopping-cart` (usata se non c'è immagine)
-   - **Accento CSS** — colore di sfondo dell'icona: `o_launch_accent_blue`, `o_launch_accent_green`, `o_launch_accent_orange`, `o_launch_accent_purple`, `o_launch_accent_pink`
+   - **Accento CSS** — colore di sfondo del quadrato icona (vedi tabella classi sotto)
 4. Salva
 
-> **Tip:** nel campo **Menu di destinazione** puoi selezionare sia un menu foglia che un menu padre. Se selezioni un menu padre (es. "Vendite"), il modulo scenderà automaticamente ai sottomenu per trovare la prima azione disponibile.
+> **Tip:** puoi selezionare sia un menu foglia che un menu padre. Se selezioni un menu padre (es. "Vendite"), il modulo scenderà automaticamente ai sottomenu per trovare la prima azione disponibile.
 
-### Configurare i colori
+### Configurare l'aspetto
 
 Vai su **Launcher → Impostazioni** per personalizzare:
 
 | Campo | Descrizione | Default |
 |---|---|---|
 | Colore sfondo dashboard | Colore di sfondo della pagina | `#1565C0` (blu) |
-| Colore sfondo icone | Colore del quadrato dietro l'icona | `#FFFFFF` (bianco) |
+| Colore sfondo icone | Colore del quadrato dietro l'icona | `#1565C0` (blu) |
+| Dimensione icone | Taglia XS / S / M / L / XL | `XL` |
 | Colore testo | Colore delle etichette sotto le icone | `#FFFFFF` (bianco) |
 | Dimensione font (px) | Dimensione del testo delle etichette | `15` |
 
-I cambiamenti vengono applicati dinamicamente senza ricaricare la pagina.
+I cambiamenti vengono applicati **dinamicamente** senza ricaricare la pagina.
+
+### Dimensioni icone disponibili
+
+| Taglia | Pixel | Note |
+|---|---|---|
+| XS | 65 px | Molto compatta, ideale per schermi piccoli |
+| S | 85 px | Compatta |
+| M | 105 px | Bilanciata |
+| L | 120 px | Grande |
+| XL | 130 px | Extra grande — default |
+
+> Il border-radius e la dimensione delle icone FontAwesome si scalano automaticamente in proporzione alla taglia selezionata.
 
 ---
 
@@ -168,30 +181,29 @@ I cambiamenti vengono applicati dinamicamente senza ricaricare la pagina.
 app_launcher_dashboard/
 ├── __init__.py
 ├── __manifest__.py
-├── post_install.py              # Hook post-installazione (carica icone e impostazioni)
+├── post_install.py                  # Hook post-installazione
 ├── models/
 │   ├── __init__.py
-│   ├── launcher_tile.py         # Modello app.launcher.tile
-│   └── launcher_settings.py    # Modello singleton launcher.settings
+│   ├── launcher_tile.py             # Modello app.launcher.tile
+│   └── launcher_settings.py        # Modello singleton launcher.settings
 ├── views/
-│   ├── launcher_tile_views.xml  # Vista kanban, list, form + action
+│   ├── launcher_tile_views.xml      # Vista kanban, list, form + action
 │   ├── launcher_settings_views.xml  # Vista form impostazioni
-│   └── launcher_menu.xml        # Definizione menu
+│   └── launcher_menu.xml            # Definizione menu
 ├── data/
-│   └── launcher_tile_data.xml   # Tile di default
+│   └── launcher_tile_data.xml       # 5 tile preconfigurate
 ├── security/
-│   └── ir.model.access.csv      # Permessi di accesso
+│   └── ir.model.access.csv          # Permessi di accesso
 └── static/
     ├── img/
     │   ├── crm.png
     │   ├── vendite.png
     │   ├── magazzino.png
-    │   └── contatti.png
+    │   ├── contatti.png
+    │   └── dipendenti.png
     └── src/
-        ├── css/
-        │   └── launcher.css
-        └── js/
-            └── launcher_bg.js   # Servizio JS per applicare i colori dinamicamente
+        ├── css/launcher.css
+        └── js/launcher_bg.js        # Applica colori e dimensioni dinamicamente
 ```
 
 ---
@@ -216,6 +228,7 @@ app_launcher_dashboard/
 |---|---|---|
 | `background_color` | Char | Colore sfondo dashboard |
 | `icon_bg_color` | Char | Colore sfondo icone |
+| `icon_size` | Selection | Taglia icone: `xs` / `s` / `m` / `l` / `xl` |
 | `label_color` | Char | Colore testo etichette |
 | `label_font_size` | Integer | Dimensione font etichette (px) |
 
@@ -223,13 +236,36 @@ app_launcher_dashboard/
 
 ## Classi CSS accent disponibili
 
-| Classe | Colore |
-|---|---|
-| `o_launch_accent_blue` | Blu `#3474C1` |
-| `o_launch_accent_green` | Verde `#27AE60` |
-| `o_launch_accent_orange` | Rosso/Arancione `#E74C3C` |
-| `o_launch_accent_purple` | Viola `#8E44AD` |
-| `o_launch_accent_pink` | Rosa `#E91E8C` |
+| Classe | Colore | Tile di default |
+|---|---|---|
+| `o_launch_accent_blue` | Blu `#3474C1` | CRM |
+| `o_launch_accent_green` | Verde `#27AE60` | Magazzino |
+| `o_launch_accent_orange` | Rosso `#E74C3C` | Vendite |
+| `o_launch_accent_purple` | Viola `#8E44AD` | Contatti |
+| `o_launch_accent_brown` | Arancione `#D35400` | Dipendenti |
+| `o_launch_accent_pink` | Rosa `#E91E8C` | — |
+
+---
+
+## Changelog
+
+### v18.0.1.1.0
+- ✨ Aggiunta tile **Dipendenti** con icona preconfigurata
+- ✨ Aggiunto controllo **dimensione icone** (XS / S / M / L / XL) nelle Impostazioni
+- ✨ Dimensione applicata dinamicamente via JS con border-radius e font proporzionali
+- ✨ Aggiunta classe CSS `o_launch_accent_brown`
+- ✨ Aggiunta dipendenza modulo `hr`
+- 🔧 Rimosso metodo inutilizzato `_find_first_openable_action`
+- 🔧 Allineamento default `icon_bg_color` tra modello e post_install
+- 🔧 Rimosso import inutilizzato `SUPERUSER_ID` da post_install
+
+### v18.0.1.0.0
+- 🎉 Release iniziale
+- Dashboard kanban con tile/icone in stile Odoo Enterprise
+- 4 tile di default: CRM, Vendite, Magazzino, Contatti
+- Impostazioni colori (sfondo, icone, etichette, font)
+- Post-install hook per caricamento automatico icone e impostazioni
+- Servizio JS per applicazione dinamica dei colori
 
 ---
 
@@ -276,8 +312,6 @@ Contributi, segnalazioni di bug e suggerimenti sono benvenuti! Ecco come parteci
 6. **Apri una Pull Request** su GitHub verso il branch `main` di questo repository
 
 ### Convenzioni per i commit
-
-Usa il formato **Conventional Commits**:
 
 | Prefisso | Quando usarlo |
 |---|---|
